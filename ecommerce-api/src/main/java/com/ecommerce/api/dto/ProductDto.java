@@ -28,7 +28,7 @@ public class ProductDto {
 	@Size(min = 20, max = 200, message = "Description should be between 20~200 characters")
 	@NotNull(message = "Enter Description")
 	private String description;
-	@Size(min = 20, max = 200, message = "ImageLink should be between 20~200 characters")
+	@Size(min = 20, max = 500, message = "ImageLink should be between 20~500 characters")
 	@NotNull(message = "Enter ImageLink")
 	private String imageLink;
 	@Min(value = 1, message = "Atleast 1 should be Entered")

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -40,6 +41,12 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(AlreadyExistsException.class)
 	@ResponseStatus(HttpStatus.CONFLICT)
 	public Map<String, String> handle(AlreadyExistsException exception) {
+		return Map.of("error", exception.getMessage());
+	}
+
+	@ExceptionHandler(AuthorizationDeniedException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public Map<String, String> handle(AuthorizationDeniedException exception) {
 		return Map.of("error", exception.getMessage());
 	}
 

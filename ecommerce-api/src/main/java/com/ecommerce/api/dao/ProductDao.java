@@ -2,6 +2,8 @@ package com.ecommerce.api.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.ecommerce.api.entity.Product;
@@ -37,5 +39,16 @@ public class ProductDao {
 
 	public void deleteById(Long id) {
 		productRepository.deleteById(id);
+	}
+
+	public List<Product> getProducts(int page, int size, String sort, boolean desc, String name, String category,
+			double lower, double higher) {
+		List<Product> products = productRepository
+				.findByNameContainingAndCategoryContainingAndPriceBetween(name, category, lower, higher,
+						PageRequest.of(page - 1, size, desc ? Sort.by(sort).descending() : Sort.by(sort).ascending()))
+				.getContent();
+		if (products.isEmpty())
+			throw new DataNotFoundException("No Products Found");
+		return products;
 	}
 }

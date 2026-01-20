@@ -40,6 +40,7 @@ public class AdminController {
 	public Map<String, Object> fetchAll() {
 		return adminService.fetchAllProducts();
 	}
+	
 
 	@DeleteMapping("/products/{id}")
 	@ResponseStatus(HttpStatus.OK)
